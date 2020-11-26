@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 let pokemonList = [
   {name: 'Ninetales', height: 1, types: ['Fire']},
   {name: 'Butterfree', height: 1, types: ['Bug', 'Flying']},
