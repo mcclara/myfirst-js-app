@@ -6,14 +6,6 @@ let pokemonList = [
   {name: 'Deerling', height: 0.6, types: ['Grass', 'Normal']}
 ];
 
-for (let i=0; i < pokemonList.length; i++){
-  if (pokemonList[i].height <0.6){
-    document.write(pokemonList[i].name + " " + 'height:' + pokemonList[i].height);
-  }else if (pokemonList[i].height ===0.6){
-    document.write(pokemonList[i].name + " " + 'height:' + pokemonList[i].height);
-  }else if (pokemonList[i].height ===1.1){
-    document.write(pokemonList[i].name + " " + 'height:' + pokemonList[i].height + " " + "Wow, that's big"); //Conditional added to write "Wow, that's big for any height over 1.1"
-  }else if (pokemonList[i].height ===1.2){
-    document.write(pokemonList[i].name + " " + 'height:' + pokemonList[i].height);
-  }
-}
+pokemonList.forEach(function(pokemon) {
+  document.write(pokemon.name + ' is ' + pokemon.height + ' and is ' + pokemon.types + " ");
+});
