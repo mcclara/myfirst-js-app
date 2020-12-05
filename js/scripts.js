@@ -20,6 +20,6 @@ function add(pokemon) {
   };
 }) ();
 
-pokemonList.forEach(function(pokemon) {
+pokemonRepository.getAll().forEach(function(pokemon) {
   document.write(pokemon.name + ' is ' + pokemon.height + ' and is ' + pokemon.types + " ");
 });
