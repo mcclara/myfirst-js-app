@@ -7,19 +7,35 @@ let pokemonList = [
   {name: 'Deerling', height: 0.6, types: ['Grass', 'Normal']}
 ];
 function add(pokemon) {
-    pokemonRepository.add(item);
+    pokemonRepository.add(pokemon);
   }
 
   function getAll() {
     return pokemonList;
   }
 
-  return {
+  function addListItem(pokemon) {
+    let pokemonList = document.querySelector('.pokemon-list');
+    let listItem = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('name-button');
+    listItem.appendChild(button);
+    pokemonList.appendChild(listItem);
+    button.addEventListener('click', showDetails); //I am not sure that I called the showDetails function correctly here
+  }
+
+  function showDetails(pokemon) {
+    console.log(pokemon.name + pokemon.height + pokemon.types); //pokemon details should print to console
+  }
+
+    return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    addListItem: addListItem
   };
 }) ();
 
 pokemonRepository.getAll().forEach(function(pokemon) {
-  document.write(pokemon.name + ' is ' + pokemon.height + ' and is ' + pokemon.types + " ");
+  pokemonRepository.addListItem(pokemon);
 });
