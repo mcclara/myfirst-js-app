@@ -1,13 +1,12 @@
 /*jshint esversion: 6 */
 let pokemonRepository = (function() {
-let pokemonList = [
-  {name: 'Ninetales', height: 1.2, types: ['Fire']},
-  {name: 'Butterfree', height: 1.1, types: ['Bug', 'Flying']},
-  {name: 'Jigglypuff', height: 0.5, types: ['Fairy', 'Normal']},
-  {name: 'Deerling', height: 0.6, types: ['Grass', 'Normal']}
-];
+let pokemonList = [];
+let apiURL = 'https://pokeapi.co/api/v2/pokemon/';
+
 function add(pokemon) {
     pokemonRepository.add(pokemon);
+    "name" in pokemon &&
+    "detailsUrl" in pokemon
   }
 
   function getAll() {
@@ -22,7 +21,13 @@ function add(pokemon) {
     button.classList.add('name-button');
     listItem.appendChild(button);
     pokemonList.appendChild(listItem);
-    button.addEventListener('click', showDetails); //I am not sure that I called the showDetails function correctly here
+    button.addEventListener('click', () => {
+      showDetails(pokemon);
+    });
+  }
+
+  function loadList (){
+    return fetch(apiURL);
   }
 
   function showDetails(pokemon) {
@@ -32,7 +37,8 @@ function add(pokemon) {
     return {
     add: add,
     getAll: getAll,
-    addListItem: addListItem
+    addListItem: addListItem,
+    loadList: loadList
   };
 }) ();
 
