@@ -4,9 +4,11 @@ let pokemonList = [];
 let apiURL = 'https://pokeapi.co/api/v2/pokemon/';
 
 function add(pokemon) {
-    pokemonRepository.add(pokemon);
-    "name" in pokemon &&
-    "detailsUrl" in pokemon
+      typeof pokemon === "object" &&
+      "name" in pokemon
+    {
+      pokemonList.push(pokemon);
+    }
   }
 
   function getAll() {
@@ -26,22 +28,49 @@ function add(pokemon) {
     });
   }
 
-  function loadList (){
-    return fetch(apiURL);
+  function loadList () {
+    return fetch(apiURL).then(function (response) {
+      return response.json();
+    }) .then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+        console.log(pokemon);
+      });
+    });
   }
 
-  function showDetails(pokemon) {
-    console.log(pokemon.name + pokemon.height + pokemon.types); //pokemon details should print to console
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }) .then (function (details) {
+      item.imageUrl = details.sprites;
+      item.height = details.height;
+    });
+  }
+
+  function showDetails(item) {
+    pokemonRepository.loadDetails(item).then(function () {
+    console.log(item);
+    }); //pokemon details should print to console
   }
 
     return {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
-    loadList: loadList
+    loadList: loadList,
+    loadDetails: loadDetails,
+    showDetails: showDetails
   };
 }) ();
 
-pokemonRepository.getAll().forEach(function(pokemon) {
+pokemonRepository.loadList().then(function ()  {
+  pokemonRepository.getAll().forEach(function (pokemon) {
   pokemonRepository.addListItem(pokemon);
+  });
 });
