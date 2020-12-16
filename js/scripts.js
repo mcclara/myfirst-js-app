@@ -55,7 +55,7 @@ function add(pokemon) {
 
   function showDetails(item) {
     pokemonRepository.loadDetails(item).then(function () {
-    console.log(item);
+    showModal;
     }); //pokemon details should print to console
   }
 
@@ -74,12 +74,14 @@ function showModal(title, text) {
 
   modalContainer.innerHTML = '';
 
-  let modal = document.createElment('div');
+  let modal = document.createElement('div');
   modal.classList.add('modal');
 
   let closeButtonElement = document.createElement('button');
   closeButtonElement.classList.add('modal-close');
   closeButtonElement.innerText = 'Close';
+  //closeButtonElement.addEventListener('click', hideModal);
+
 
   let titleElement = document.createElement('h1');
   titleElement.innerText = title;
@@ -95,8 +97,25 @@ function showModal(title, text) {
   modalContainer.classList.add('is-visible');
 }
 
+/* function hideModal() {
+    modalContainer.classList.remove('is-visible');
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+      hideModal();
+    }
+  });
+  modalContainer.addEventListener('click', (e) => {
+    // close if the user clicks directly on the overlay
+    let target = e.target;
+    if (target === modalContainer) {
+      hideModal();
+    }
+  }); */
+
 document.querySelector('#show-modal').addEventListener('click', () => {
-  showModal('Modal title', 'This is the modal content!');
+  showModal('Pokemon Img', 'pokemon height');
 });
 
   pokemonRepository.loadList().then(function ()  {
