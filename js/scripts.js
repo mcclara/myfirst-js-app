@@ -69,7 +69,37 @@ function add(pokemon) {
   };
 }) ();
 
-pokemonRepository.loadList().then(function ()  {
+function showModal(title, text) {
+  let modalContainer = document.querySelector('#modal-container');
+
+  modalContainer.innerHTML = '';
+
+  let modal = document.createElment('div');
+  modal.classList.add('modal');
+
+  let closeButtonElement = document.createElement('button');
+  closeButtonElement.classList.add('modal-close');
+  closeButtonElement.innerText = 'Close';
+
+  let titleElement = document.createElement('h1');
+  titleElement.innerText = title;
+
+  let contentElement = document.createElement('p');
+  contentElement.innerText = text;
+
+  modal.appendChild(closeButtonElement);
+  modal.appendChild(titleElement);
+  modal.appendChild(contentElement);
+  modalContainer.appendChild(modal);
+
+  modalContainer.classList.add('is-visible');
+}
+
+document.querySelector('#show-modal').addEventListener('click', () => {
+  showModal('Modal title', 'This is the modal content!');
+});
+
+  pokemonRepository.loadList().then(function ()  {
   pokemonRepository.getAll().forEach(function (pokemon) {
   pokemonRepository.addListItem(pokemon);
   });
