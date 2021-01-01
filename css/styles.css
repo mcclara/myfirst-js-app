@@ -54,11 +54,14 @@
   text-decoration: underline;
 }
 
-.modal h1 {
+.modal img {
+  display: block;
   margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.modal p {
+.modal p, .modal name {
   margin-bottom: 0;
 }
 
