@@ -51,6 +51,7 @@ function add(pokemon) {
       item.imageUrl = details.sprites.front_default;
       item.name = details.name;
       item.height = details.height;
+      item.types = details.types;
     });
   }
 
@@ -73,39 +74,50 @@ function add(pokemon) {
 let modalContainer = document.querySelector('#modal-container');
 
 function showModal(item) {
-  modalContainer.innerHTML = '';
+  let modalBody = $(".modal-body");
+  let modalTitle = $("modal-title");
+  let modalHeader = $("modal-header");
 
-  let modal = document.createElement('div');
-  modal.classList.add('modal');
+  $('#modal-container').modal('show');
 
+  modalTitle.empty();
+  modalBody.empty();
+
+  /* Original coding used before adding bootstrap:
   let closeButtonElement = document.createElement('button');
   closeButtonElement.classList.add('modal-close');
   closeButtonElement.innerText = 'Close';
-  closeButtonElement.addEventListener('click', hideModal);
+  closeButtonElement.addEventListener('click', hideModal); */
 
-  let imageElement = document.createElement('img');
-  imageElement.src = item.imageUrl;
+  let nameElement = $("<h1>" + item.name + "</h1>");
 
-  let heightElement = document.createElement('p');
-  heightElement.innerText = ('Height:' + ' ' + item.height);
+  let imageElement = $('<img class="modal-img" style="width:50%px>');
+  imageElement.attr("src", item.imageUrl);
 
-  let nameElement = document.createElement('name');
-  nameElement.innerText = ('Name:' + ' ' + item.name);
+  let heightElement = $("<p>" + item.height + "</p>");
 
+  let typesElement = $("<p>" + item.types + "</p>");
+
+  modalTitle.append(nameElement);
+  modalBody.append(imageElement);
+  modalBody.append(heightElement);
+  modalBody.append(typesElement);
+
+  /* Original Code used before adding Bootstrap
   modal.appendChild(closeButtonElement);
   modal.appendChild(imageElement);
   modal.appendChild(nameElement);
   modal.appendChild(heightElement);
   modalContainer.appendChild(modal);
 
-  modalContainer.classList.add('is-visible');
+  modalContainer.classList.add('is-visible'); */
 }
 
 function hideModal() {
   modalContainer.classList.remove('is-visible');
 }
 
-window.addEventListener('keydown', (e) => {
+ window.addEventListener('keydown', (e) => {
 
   if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
     hideModal();
