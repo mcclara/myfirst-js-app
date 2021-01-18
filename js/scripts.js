@@ -51,7 +51,11 @@ function add(pokemon) {
       item.imageUrl = details.sprites.front_default;
       item.name = details.name;
       item.height = details.height;
-      item.types = details.types;
+      item.weight = details.weight;
+      item.types = [];
+        details.types.forEach(function (itemType) {
+          item.types.push(itemType.type.name);
+        });
     });
   }
 
@@ -75,42 +79,30 @@ let modalContainer = document.querySelector('#modal-container');
 
 function showModal(item) {
   let modalBody = $(".modal-body");
-  let modalTitle = $("modal-title");
-  let modalHeader = $("modal-header");
+  let modalTitle = $(".modal-title");
+  let modalHeader = $(".modal-header");
 
   $('#modal-container').modal('show');
 
   modalTitle.empty();
   modalBody.empty();
 
-  /* Original coding used before adding bootstrap:
-  let closeButtonElement = document.createElement('button');
-  closeButtonElement.classList.add('modal-close');
-  closeButtonElement.innerText = 'Close';
-  closeButtonElement.addEventListener('click', hideModal); */
-
   let nameElement = $("<h1>" + item.name + "</h1>");
 
-  let imageElement = $('<img class="modal-img" style="width:50%px>');
+  let imageElement = $('<img class="modal-img" style="width:40%">');
   imageElement.attr("src", item.imageUrl);
 
-  let heightElement = $("<p>" + item.height + "</p>");
+  let heightElement = $("<p>" + 'Height:' + ' ' + item.height + "</p>");
 
-  let typesElement = $("<p>" + item.types + "</p>");
+  let weightElement = $("<p>" + 'Weight:' + ' ' + item.weight + "</p>");
+
+  let typesElement = $("<p>" + 'Types:' + ' ' + item.types + "</p>");
 
   modalTitle.append(nameElement);
   modalBody.append(imageElement);
   modalBody.append(heightElement);
+  modalBody.append(weightElement);
   modalBody.append(typesElement);
-
-  /* Original Code used before adding Bootstrap
-  modal.appendChild(closeButtonElement);
-  modal.appendChild(imageElement);
-  modal.appendChild(nameElement);
-  modal.appendChild(heightElement);
-  modalContainer.appendChild(modal);
-
-  modalContainer.classList.add('is-visible'); */
 }
 
 function hideModal() {
@@ -131,10 +123,6 @@ modalContainer.addEventListener('click', (e) => {
   if (target === modalContainer) {
     hideModal();
   }
-});
-
-document.querySelector('#show-modal').addEventListener('click', () => {
-  showModal('Pokemon Img', 'pokemon height');
 });
 
   pokemonRepository.loadList().then(function ()  {
