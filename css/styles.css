@@ -8,3 +8,7 @@
   border: 3px solid #F2F3F4;
   padding: 16px 32px;
   }
+
+  .pokemon-list {
+list-style: none;   
+  }
