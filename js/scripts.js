@@ -1,11 +1,13 @@
 /*jshint esversion: 6 */
+/* eslint-env jquery */
+/*jshint -W030 */
 let pokemonRepository = (function() {
 let pokemonList = [];
 let apiURL = 'https://pokeapi.co/api/v2/pokemon/';
 
 function add(pokemon) {
-      typeof pokemon === "object" &&
-      "name" in pokemon
+      typeof pokemon === 'object' &&
+      'name' in pokemon;
     {
       pokemonList.push(pokemon);
     }
@@ -78,25 +80,24 @@ function add(pokemon) {
 let modalContainer = document.querySelector('#modal-container');
 
 function showModal(item) {
-  let modalBody = $(".modal-body");
-  let modalTitle = $(".modal-title");
-  let modalHeader = $(".modal-header");
+  let modalBody = $('.modal-body');
+  let modalTitle = $('.modal-title');
 
   $('#modal-container').modal('show');
 
   modalTitle.empty();
   modalBody.empty();
 
-  let nameElement = $("<h1>" + item.name + "</h1>");
+  let nameElement = $('<h1>' + item.name + '</h1>');
 
   let imageElement = $('<img class="modal-img" style="width:40%">');
-  imageElement.attr("src", item.imageUrl);
+  imageElement.attr('src', item.imageUrl);
 
-  let heightElement = $("<p>" + 'Height:' + ' ' + item.height + "</p>");
+  let heightElement = $('<p>' + 'Height:' + ' ' + item.height + '</p>');
 
-  let weightElement = $("<p>" + 'Weight:' + ' ' + item.weight + "</p>");
+  let weightElement = $('<p>' + 'Weight:' + ' ' + item.weight + '</p>');
 
-  let typesElement = $("<p>" + 'Types:' + ' ' + item.types + "</p>");
+  let typesElement = $('<p>' + 'Types:' + ' ' + item.types + '</p>');
 
   modalTitle.append(nameElement);
   modalBody.append(imageElement);
